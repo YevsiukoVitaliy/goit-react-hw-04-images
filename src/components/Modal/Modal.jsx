@@ -1,4 +1,5 @@
 import css from './modal.module.css';
+import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 
 const Modal = ({ show, gallery, id, showModal, escFunction }) => {
@@ -15,6 +16,7 @@ const Modal = ({ show, gallery, id, showModal, escFunction }) => {
     <div
       onClick={() => {
         showModal();
+        console.log(id);
       }}
       onKeyDown={() => escFunction()}
       className={css.Overlay}
@@ -28,6 +30,14 @@ const Modal = ({ show, gallery, id, showModal, escFunction }) => {
         ))}
     </div>
   );
+};
+
+Modal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  gallery: PropTypes.array.isRequired,
+  id: PropTypes.number,
+  showModal: PropTypes.func.isRequired,
+  escFunction: PropTypes.func.isRequired,
 };
 
 export default Modal;

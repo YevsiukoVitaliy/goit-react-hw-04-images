@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import css from './imageGallery.module.css';
 
@@ -11,3 +11,8 @@ export default function ImageGallery({ gallery, showModal }) {
     </ul>
   );
 }
+
+ImageGallery.propTypes = {
+  showModal: PropTypes.func.isRequired,
+  gallery: PropTypes.array.isRequired,
+};

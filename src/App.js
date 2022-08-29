@@ -13,7 +13,7 @@ export default function App() {
   const [isLoader, setisLoader] = useState(false);
   const [error, seterror] = useState(null);
   const [show, setshow] = useState(false);
-  const [id, setid] = useState('');
+  const [id, setid] = useState(0);
   const [galleryLength, setgalleryLength] = useState(0);
   const [per_page] = useState(12);
   const [search, setsearch] = useState('');
@@ -59,7 +59,7 @@ export default function App() {
     if (search.trim() !== '') {
       try {
         imageAPI(search, 1, per_page).then(({ hits }) => {
-          setgallery([...hits]);
+          setgallery(hits);
           setisLoader(false);
           setgalleryLength(prev => prev + per_page);
         });

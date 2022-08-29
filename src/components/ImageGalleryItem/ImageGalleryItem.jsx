@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import css from './imageGalleryItem.module.css';
 
 export default function ImageGalleryItem({ item, showModal }) {
@@ -7,6 +7,7 @@ export default function ImageGalleryItem({ item, showModal }) {
       <img
         onClick={() => {
           showModal(item.id);
+          console.log(item);
         }}
         className={css.ImageGalleryItemImage}
         src={item.webformatURL}
@@ -15,3 +16,8 @@ export default function ImageGalleryItem({ item, showModal }) {
     </li>
   );
 }
+
+ImageGalleryItem.propTpes = {
+  showModal: PropTypes.func.isRequired,
+  item: PropTypes.object.isRequired,
+};

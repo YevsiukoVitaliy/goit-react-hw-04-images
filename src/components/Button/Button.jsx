@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import css from './button.module.css';
 
@@ -8,3 +9,7 @@ export default function Button({ handleMore }) {
     </button>
   );
 }
+
+Button.propTypes = {
+  handleMore: PropTypes.func.isRequired,
+};
