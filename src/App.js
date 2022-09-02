@@ -8,66 +8,66 @@ import Searchbar from 'components/Searchbar/Searchbar';
 import { imageAPI } from 'imageAPI/imageAPI';
 
 export default function App() {
-  const [page, setpage] = useState(1);
-  const [gallery, setgallery] = useState([]);
-  const [isLoader, setisLoader] = useState(false);
-  const [error, seterror] = useState(null);
-  const [show, setshow] = useState(false);
-  const [id, setid] = useState(0);
-  const [galleryLength, setgalleryLength] = useState(0);
+  const [page, setPage] = useState(1);
+  const [gallery, setGallery] = useState([]);
+  const [isLoader, setIsLoader] = useState(false);
+  const [error, setError] = useState(null);
+  const [show, setShow] = useState(false);
+  const [id, setId] = useState(0);
+  const [galleryLength, setGalleryLength] = useState(0);
   const [per_page] = useState(12);
-  const [search, setsearch] = useState('');
+  const [search, setSearch] = useState('');
 
   const showModal = e => {
-    setshow(!show);
-    setid(e);
+    setShow(!show);
+    setId(e);
   };
 
   const escFunction = event => {
     if (show && event.key === 'Escape') {
-      setshow(!show);
+      setShow(!show);
     }
   };
+
   useEffect(() => {
     if (page !== 1) {
       try {
         imageAPI(search, page, per_page).then(({ hits }) => {
-          setgallery(prev => [...prev, ...hits]);
-          setisLoader(false);
-          setgalleryLength(prev => prev + per_page);
+          setGallery(prev => [...prev, ...hits]);
+          setIsLoader(false);
+          setGalleryLength(prev => prev + per_page);
         });
       } catch (error) {
-        seterror(error.imageAPI);
+        setError(error.imageAPI);
         console.log('error', error);
       } finally {
-        setisLoader(true);
+        setIsLoader(true);
       }
     }
   }, [page, search, per_page]);
 
   const handleMore = () => {
-    setpage(page + 1);
+    setPage(page + 1);
   };
 
   const handleSubmit = search => {
-    setsearch(search);
-    setpage(1);
-    setgallery([]);
-    setgalleryLength(0);
-    console.log(galleryLength);
+    setSearch(search);
+    setPage(1);
+    setGallery([]);
+    setGalleryLength(0);
 
     if (search.trim() !== '') {
       try {
         imageAPI(search, 1, per_page).then(({ hits }) => {
-          setgallery(hits);
-          setisLoader(false);
-          setgalleryLength(prev => prev + per_page);
+          setGallery(hits);
+          setIsLoader(false);
+          setGalleryLength(prev => prev + per_page);
         });
       } catch (error) {
-        seterror(error.imageAPI);
+        setError(error.imageAPI);
         console.log('error', error);
       } finally {
-        setisLoader(true);
+        setIsLoader(true);
       }
     }
   };
@@ -82,13 +82,16 @@ export default function App() {
         <Button handleMore={handleMore} />
       )}
 
-      <Modal
-        escFunction={escFunction}
-        showModal={showModal}
-        gallery={gallery}
-        id={id}
-        show={show}
-      />
+      {show && (
+        <Modal
+          showModal={showModal}
+          gallery={gallery}
+          id={id}
+          show={show}
+          setShow={setShow}
+          escFunction={escFunction}
+        />
+      )}
     </div>
   );
 }

@@ -7,7 +7,6 @@ export default function ImageGalleryItem({ item, showModal }) {
       <img
         onClick={() => {
           showModal(item.id);
-          console.log(item);
         }}
         className={css.ImageGalleryItemImage}
         src={item.webformatURL}
